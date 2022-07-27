@@ -1,9 +1,7 @@
 import React from 'react'
-// import { useParams } from 'react-router-dom'
 import { Navigate, useNavigate, Routes, Route } from 'react-router-dom'
 
 function Post() {
-  //   const params = useParams()
   const status = 200
   const navigate = useNavigate()
   const onClick = () => {
@@ -16,7 +14,6 @@ function Post() {
 
   return (
     <div>
-      {/* <h1>Post {params.id}</h1> */}
       <h1>Post</h1>
       <button onClick={onClick}>Click</button>
       <Routes>

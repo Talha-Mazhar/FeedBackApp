@@ -4,14 +4,6 @@ function AboutIconLink() {
   return (
     <div className='about-link'>
       <Link to='/about'>
-        {/* or{' '}
-        <Link
-          to={{
-            pathname: '/about',
-            search: 'sort=name',
-            hash: '#hello',
-          }}
-        ></Link> */}
         <FaQuestion size={30} />
       </Link>
     </div>

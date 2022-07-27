@@ -35,13 +35,9 @@ function FeedbackForms() {
     e.preventDefault()
     if (text.trim().length > 10) {
       const newFeedback = {
-        //setting this rating to main settext, text etc
         text,
         rating,
-        //or text: text, rating: rating
       }
-      //console.log(newFeedback)
-      // handleAdd(newFeedback)
       if (feedbackEdit.edit === true) {
         updateFeedback(feedbackEdit.item.id, newFeedback)
       } else {
