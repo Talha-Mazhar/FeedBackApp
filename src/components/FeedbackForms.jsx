@@ -8,7 +8,7 @@ function FeedbackForms() {
   const [text, setText] = useState('')
   const [rating, setRating] = useState(10)
   const [btnDisabled, setbtnDisabled] = useState(true)
-  const [message, setmessage] = useState('')
+  const [message, setMessage] = useState('')
   const { addFeedback, feedbackEdit, updateFeedback } =
     useContext(FeedbackContext)
   useEffect(() => {
@@ -18,31 +18,38 @@ function FeedbackForms() {
       setRating(feedbackEdit.item.rating)
     }
   }, [feedbackEdit])
-  const handleTextChange = (e) => {
-    if (text === '') {
-      setbtnDisabled(true)
-      setmessage(null)
-    } else if (text !== '' && text.trim().length <= 10) {
-      setmessage('Text must be at least 10 characters')
-      setbtnDisabled(true)
+const handleTextChange = ({ target: { value } }) => { // 👈  get the value
+    if (value === '') {
+      setBtnDisabled(true)
+      setMessage(null)
+      
+  // prettier-ignore
+    } else if (value.trim().length < 10) { // 👈 check for less than 10
+      setMessage('Text must be at least 10 characters')
+      setBtnDisabled(true)
     } else {
-      setmessage(null)
-      setbtnDisabled(false)
+      setMessage(null)
+      setBtnDisabled(false)
     }
-    setText(e.target.value)
+    setText(value)
   }
-  const handleSubmit = (e) => {
+    const handleSubmit = (e) => {
     e.preventDefault()
     if (text.trim().length > 10) {
       const newFeedback = {
         text,
         rating,
       }
+
       if (feedbackEdit.edit === true) {
         updateFeedback(feedbackEdit.item.id, newFeedback)
       } else {
         addFeedback(newFeedback)
       }
+
+      // NOTE: reset to default state after submission
+      setBtnDisabled(true) // 👈  add this line to reset disabled
+      setRating(10) //👈 add this line to set rating back to 10
       setText('')
     }
   }
@@ -50,7 +57,7 @@ function FeedbackForms() {
     <Card>
       <form onSubmit={handleSubmit}>
         <h2>How would you rate your services with us?</h2>
-        <RatingSelect select={(rating) => setRating(rating)} />
+        <RatingSelect select={setRating} => selected={rating} />
         <div className='input-group'>
           <input
             onChange={handleTextChange}
